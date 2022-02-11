@@ -1,6 +1,7 @@
 -- CREATE DATABASE bd_sisacpa CHARACTER SET UTF8;
 -- USE bd_sisHorario;
 -- DROP DATABASE bd_sisHorario;
+--script banco
 
 DROP TABLE IF EXISTS tb_alocacao_professor;
 CREATE TABLE IF NOT EXISTS  `tb_alocacao_professor` (
