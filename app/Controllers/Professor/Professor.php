@@ -23,10 +23,7 @@ class Professor extends BaseController
         ];
         if (session()->has('erro')) {
             $this->erros = session('erro');
-            $msgs = [
-                'message' => '<i class="fas fa-exclamation-triangle"></i> Ops! Erro(s) no preenchimento!',
-                'alert' => 'danger'
-            ];
+            $msgs = $this->messageErro;
         }
 
         $data = array(
