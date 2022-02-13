@@ -26,10 +26,7 @@ class AlocacaoModel extends Model
     }
 
     public function atualizarHorario($id_professor, $dia_semana, $posicao_aula, $id_serie)
-    {
-       
-        
-        
+    {     
         $result = $this->where('id_professor', $id_professor)
              ->where('dia_semana', $dia_semana)
              ->where('posicao_aula', $posicao_aula)

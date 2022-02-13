@@ -1,161 +1,103 @@
-<?php 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Content-Type");?>
 <!doctype html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.88.1">
-    <title>Dashboard Template · Bootstrap v5.1</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
 
-    <!-- Bootstrap core CSS -->
+  <title>Starter Template for Bootstrap</title>
 
-    <link rel="stylesheet" href="<?php echo base_url("assets/dist/css/bootstrap.min.css");?>">
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/starter-template/">
 
-    <style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
+  <!-- Bootstrap core CSS -->
+
+  <link rel="stylesheet" href="<?php echo base_url("assets/dist/css/bootstrap.min.css"); ?>">
+
+  <!-- Custom styles for this template -->
+  <style>
+    body {
+      padding-top: 5rem;
     }
-
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-        }
+    .starter-template {
+      padding: 3rem 1.5rem;
+      text-align: center;
     }
-    </style>
+  </style>
 
 
-    <!-- Custom styles for this template -->
-
-    <link rel="stylesheet" href="<?php echo base_url("assets/dist/css/dashboard.css");?>">
 </head>
 
 <body>
 
-    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Company name</a>
-        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-        <div class="navbar-nav">
-            <div class="nav-item text-nowrap">
-                <a class="nav-link px-3" href="#">Sign out</a>
-            </div>
-        </div>
-    </header>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="container-fluid">
-        <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
-                                <span data-feather="home"></span>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
                             <?= anchor('horario', 
                        '<span data-feather="calendar"></span> Horário', 
                         array('class'=>'nav-link'))?>
-                        </li>
-                        <li class="nav-item">
-                            <?= anchor('professor', 
-                       '<span data-feather="user"></span> Professor', 
-                        array('class'=>'nav-link'))?>
-                        </li>
+                        </li>     
+                        
                         <li class="nav-item">
                             <?= anchor('alocacao', 
                        '<span data-feather="user-check"></span> Alocar Professor', 
                         array('class'=>'nav-link'))?>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="users"></span>
-                                Customers
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="bar-chart-2"></span>
-                                Reports
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="layers"></span>
-                                Integrations
-                            </a>
-                        </li>
-                    </ul>
 
-                    <h6
-                        class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                        <span>Saved reports</span>
-                        <a class="link-secondary" href="#" aria-label="Add a new report">
-                            <span data-feather="plus-circle"></span>
-                        </a>
-                    </h6>
-                    <ul class="nav flex-column mb-2">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Current month
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Last quarter
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Social engagement
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Year-end sale
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
 
-            <?= $this->renderSection('content');?>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
 
-        </div>
+  <main role="main" class="">
+
+    <div class="starter-template">      
+         <?= $this->renderSection('content');?>
     </div>
 
 
+  
 
-    <script src="<?=base_url("assets/dist/js/bootstrap.bundle.min.js")?>"></script>
+  </main><!-- /.container -->
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
 
 
+  <script src="<?= base_url("assets/dist/js/jquery-3.3.1.slim.min.js") ?>" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-        integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous">
-    </script>
-
-    <script src="<?=base_url("assets/dist/js/dashboard.js")?>"></script>
+  <script>
+    window.jQuery || document.write('<script src="<?= base_url("assets/dist/js/jquery-3.3.1.slim.min.js") ?>"><\/script>')
+  </script>
+  <script src="<?= base_url("assets/dist/js/popper.min.js") ?>"></script>
+  <script src="<?= base_url("assets/dist/js/bootstrap.min.js") ?>"></script>
 </body>
 
 </html>

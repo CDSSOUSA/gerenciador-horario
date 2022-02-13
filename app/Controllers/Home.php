@@ -11,4 +11,6 @@ class Home extends BaseController
         $n = new HorarioController();
         return $n->index();
     }
+
+    
 }

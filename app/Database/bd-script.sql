@@ -1,9 +1,9 @@
 -- CREATE DATABASE bd_sisacpa CHARACTER SET UTF8;
 -- USE bd_sisHorario;
 -- DROP DATABASE bd_sisHorario;
---script banco
 
 DROP TABLE IF EXISTS tb_alocacao_professor;
+DROP TABLE IF EXISTS tb_professor_disciplina;
 CREATE TABLE IF NOT EXISTS  `tb_alocacao_professor` (
   `id` int NOT NULL,
   `id_professor` int NOT NULL,
@@ -12,17 +12,19 @@ CREATE TABLE IF NOT EXISTS  `tb_alocacao_professor` (
   `posicao_aula` smallint DEFAULT NULL,
   `situacao` char(1) DEFAULT NULL COMMENT 'L- LIVRE, O-OCUPADO',
   `status` char(1) DEFAULT 'A' COMMENT 'A-ATIVO; I-INATIVO',
-  `id_serie` smallint NOT NULL
+  `id_serie` smallint NOT NULL,
+  id_disciplina INT,
+  CONSTRAINT id_disciplina_fk FOREIGN KEY (id_disciplina) REFERENCES tb_professor_disciplina (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `tb_alocacao_professor` (`id`, `id_professor`, `nome`, `dia_semana`, `posicao_aula`, `situacao`, `status`, `id_serie`) VALUES
-(1, 1, 'TIBERIO', '2', 1, 'L', 'A', 1),
-(2, 1, 'TIBERIO', '2', 2, 'L', 'A', 1),
-(3, 2, 'ARNALDO', '3', 1, 'L', 'A', 1),
-(4, 4, 'MICHELLI', '2', 1, 'L', 'A', 1),
-(5, 5, 'ALEXANDRE', '2', 4, 'O', 'A', 1),
-(6, 6, 'TESSÁLIA', '2', 5, 'O', 'A', 1),
-(7, 6, 'TESSÁLIA', '2', 6, 'O', 'A', 1);
+INSERT INTO `tb_alocacao_professor` (`id`, `id_professor`, `nome`, `dia_semana`, `posicao_aula`, `situacao`, `status`, `id_serie`, id_disciplina) VALUES
+(1, 1, 'TIBERIO', '2', 1, 'L', 'A', 1,1),
+(2, 1, 'TIBERIO', '2', 2, 'L', 'A', 1,2),
+(3, 2, 'ARNALDO', '3', 1, 'L', 'A', 1,3),
+(4, 4, 'MICHELLI', '2', 1, 'L', 'A', 1,4),
+(5, 5, 'ALEXANDRE', '2', 4, 'O', 'A', 1,5),
+(6, 6, 'TESSÁLIA', '2', 5, 'O', 'A', 1,6);
+
 
 DROP TABLE IF EXISTS tb_horario; 
 DROP TABLE IF EXISTS tb_professor_serie;
@@ -38,7 +40,8 @@ CREATE TABLE IF NOT EXISTS  `tb_ano_letivo` (
 
 INSERT INTO `tb_ano_letivo` (`id`, `ano`, `status`) VALUES (1, '2021', 'A');
 
-DROP TABLE IF EXISTS tb_professor_disciplina; 
+ 
+
 DROP TABLE IF EXISTS tb_disciplina;
 CREATE TABLE IF NOT EXISTS `tb_disciplina` (
   `id` smallint NOT NULL,
@@ -51,7 +54,7 @@ INSERT INTO `tb_disciplina` (`id`, `descricao`) VALUES
 (3, 'PORTUGUÊS'),
 (4, 'HISTÓRIA'),
 (5, 'CIÊNCIAS'),
-(6, 'ED. FÍSICA');
+(6, 'ED.FÍSICA');
 
 CREATE TABLE IF NOT EXISTS `tb_horario`(
   `id` int NOT NULL,
@@ -123,17 +126,19 @@ INSERT INTO `tb_professor` (`id`, `nome`, `qtde_aula`, `cor_destaque`, `status`)
 
 
 CREATE TABLE IF NOT EXISTS `tb_professor_disciplina` (
-  `id_professor` int NOT NULL,
-  `id_disciplina` smallint NOT NULL
+  id INT AUTO_INCREMENT,
+  id_professor int NOT NULL,
+  id_disciplina smallint NOT NULL,
+  CONSTRAINT id_pk PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `tb_professor_disciplina` (`id_professor`, `id_disciplina`) VALUES
-(1, 1),
-(1, 2),
-(2, 1),
-(4, 5),
-(5, 6),
-(6, 3);
+INSERT INTO `tb_professor_disciplina` (id, id_professor, id_disciplina) VALUES
+(null, 1, 1),
+(null, 1, 2),
+(null, 2, 1),
+(null, 4, 5),
+(null, 5, 6),
+(null, 6, 3);
 
 
 CREATE TABLE IF NOT EXISTS `tb_professor_serie` (
@@ -169,16 +174,17 @@ CREATE TABLE IF NOT EXISTS `tb_serie` (
 
 
 INSERT INTO `tb_serie` (`id`, `descricao`, `classificacao`, `turno`, `id_ano_letivo`) VALUES
-(1, '6º', 'A', 'M', 1),
-(2, '6º', 'B', 'M', 1),
-(3, '6º', 'C', 'M', 1),
-(4, '7º', 'A', 'M', 1),
-(5, '7º', 'B', 'M', 1),
-(6, '7º', 'C', 'M', 1),
-(7, '8º', 'A', 'M', 1),
-(8, '8º', 'B', 'M', 1),
-(9, '9º', 'A', 'M', 1),
-(10, '9º', 'B', 'M', 1);
+(1, '6', 'A', 'M', 1),
+(2, '6', 'B', 'M', 1),
+(3, '6', 'C', 'M', 1),
+(4, '7', 'A', 'M', 1),
+(5, '7', 'B', 'M', 1),
+(6, '7', 'C', 'M', 1),
+(7, '9', 'A', 'M', 1),
+(8, '9', 'B', 'M', 1),
+(9, '9', 'C', 'M', 1),
+(10, '6', 'D', 'M', 1),
+(11, '7', 'D', 'M', 1);
 
 ALTER TABLE `tb_alocacao_professor`
   ADD PRIMARY KEY (`id`),

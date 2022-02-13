@@ -23,9 +23,9 @@ class HorarioModel extends Model
 
     public function getHorarioDiaSemana(int $diaSemana, int $idSerie, int $posicao ): array{
 
-        $result = $this->select('h.id, h.nome,h.id_professor, p.cor_destaque')
+        $result = $this->select('h.id, h.id_professor, p.cor_destaque')
                         ->from('tb_professor p')
-                        ->join('tb_horario h', 'p.id = h.id_professor')
+                        ->join('tb_horario h', 'p.id = h.id_professor')                        
                         ->where('h.dia_semana', $diaSemana)
                         ->where('h.id_serie', $idSerie)
                         ->where('h.posicao_aula', $posicao)

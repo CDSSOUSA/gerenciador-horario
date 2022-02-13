@@ -12,14 +12,29 @@ class SerieModel extends Model
     protected $primaryKey           = 'id';   
     //protected $returnType           = 'array';
 
-    public function getSeries(): array{
-
-        $result = $this->findAll();
-        
+    /**
+     * [Description for getSeries]
+     *
+     * @return array
+     * 
+     */
+    public function getSeries(): array
+    {
+        $this->orderBy('descricao');
+        $result = $this->findAll();        
         return !is_null($result) ? $result : [];
     }
 
-    public function getSerie($id_serie): array{
+    /**
+     * [Description for getSerie]
+     *
+     * @param string $id_serie
+     * 
+     * @return array
+     * 
+     */
+    public function getSerie(string $id_serie): array
+    {
 
         $result = $this->find($id_serie);
         return $result;
