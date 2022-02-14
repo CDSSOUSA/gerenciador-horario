@@ -48,3 +48,12 @@ function turno($turno): string
        return $turno == 'M' ? "MANHÃ": "TARDE";
 
     }
+function convertDiscipline(string $string): string
+{
+    return mb_substr($string,0,3); 
+}
+
+function describeTeacher(string $nomeCompleto, string $disciplina): string
+{
+    return word_limiter($nomeCompleto,1,'').' - '. convertDiscipline($disciplina);
+}

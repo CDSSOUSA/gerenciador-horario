@@ -70,7 +70,7 @@ class Horario extends BaseController
             'diaSemana' => $dia_semana,
             'idSerie' => $this->series->getSerie($id_serie),
             'posicao' => $posicao,
-            'professores' => $this->alocacaoProfessor->getAlocacaoProfessor($dia_semana, $posicao, $id_serie),
+            'professores' => $this->alocacaoProfessor->getAlocacaoProfessor($id_serie, $dia_semana, $posicao),
             'msgs' => $msg,
             'erro' => $this->erros
 
@@ -89,10 +89,10 @@ class Horario extends BaseController
 
         $val = $this->validate(
             [
-                'nProfessor' => 'required',
+                'nIdAlocacao' => 'required',
             ],
             [
-                'nProfessor' => [
+                'nIdAlocacao' => [
                     'required' => 'O campo PROFESSOR tem preenchimento obrigatório!',
                 ],
             ]
@@ -103,22 +103,22 @@ class Horario extends BaseController
         }
 
         $idAlocacao = $this->request->getPost('nProfessor');
-        $dado = $this->alocacaoProfessor->find($idAlocacao);
-        $horario['id_professor'] = $dado['id_professor'];
-        $horario['nome'] = word_limiter($this->professor->getNomeProfessor($dado['id_professor'])->nome, 1, '');
+        //$dado = $this->alocacaoProfessor->find($idAlocacao);
+        $horario['id_professor_alocacao'] = $this->request->getPost('nIdAlocacao');
+        //$horario['nome'] = word_limiter($this->professor->getNomeProfessor($dado['id_professor'])->nome, 1, '');
         $horario['dia_semana'] = $this->request->getPost('ndiaSemana');
         $horario['posicao_aula'] = $this->request->getPost('nPosicao');
         $horario['id_serie'] = $this->request->getPost('nSerie');
         $horario['id_ano_letivo'] = 1;
         $horario['status'] = 'A';
-
-        $alocacao['id'] = $idAlocacao;
-        $alocacao['id_professor'] = $dado['id_professor'];
-        $alocacao['nome'] = $dado['nome'];
-        $alocacao['dia_semana'] = $dado['dia_semana'];
-        $alocacao['posicao_aula'] = $dado['posicao_aula'];
-        $alocacao['id_serie'] = $dado['id_serie'];
-        $alocacao['status'] = $dado['status'];
+       
+        /* BUSCAR DADOS DA ALOCAÇÃO PARA MODIFICAR */
+        $dadoAlocacao = $this->alocacaoProfessor->find($this->request->getPost('nIdAlocacao'));
+        $alocacao['id'] = $dadoAlocacao['id'];
+        $alocacao['id_professor'] = $dadoAlocacao['id_professor'];        
+        $alocacao['dia_semana'] = $dadoAlocacao['dia_semana'];
+        $alocacao['posicao_aula'] = $dadoAlocacao['posicao_aula'];        
+        $alocacao['status'] = $dadoAlocacao['status'];
         $alocacao['situacao'] = 'O';
 
         if ($this->horario->save($horario)) {

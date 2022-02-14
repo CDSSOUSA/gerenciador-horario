@@ -29,18 +29,18 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <label for="country" class="form-label">Professor(a):</label>
-                    <select class="form-select" id="country" name="nProfessor">
+                    <select class="form-select" id="country" name="nIdAlocacao">
                         <option value="">Selecione ...</option>
                         <?php              
                 
                 foreach($professores as $professor):?>
-                        <option value="<?=$professor['id']?>"><?=$professor['nome']?></option>
-                        <?php endforeach?>
+                        <option value="<?=$professor['id']?>"><?=describeTeacher($professor['nome'],$professor['descricao'])?></option>
+                <?php endforeach?>
                     </select>
 
                     <div class="">
                         <span style="color:red"
-                            class="font-italic font-weight-bold"><?php echo $erro !== '' ? $erro->getError('nProfessor'):'';?></span>
+                            class="font-italic font-weight-bold"><?php echo $erro !== '' ? $erro->getError('nIdAlocacao'):'';?></span>
 
                     </div>
                 </div>

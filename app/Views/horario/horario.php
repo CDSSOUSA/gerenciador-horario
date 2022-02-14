@@ -10,7 +10,7 @@ echo $this->extend('layouts/default'); ?>
     <strong><?= $msgs['message']; ?></strong>
 </div>
 <div class="table-responsive">
-    <table class="table table-striped table-sm">
+    <table class="table table-sm">
         <thead>
             <tr>
                 <th>Dias</th>
@@ -29,7 +29,7 @@ echo $this->extend('layouts/default'); ?>
 
             for ($j = 2; $j < 7; $j++) :
 
-                if ($j != 4) {
+                
                     for ($i = 1; $i < 7; $i++) :
                         echo '<tr>';
                         if ($i == 1) {
@@ -38,20 +38,17 @@ echo $this->extend('layouts/default'); ?>
                             echo '<td></td>';
                         }
 
-                        echo '<td>' . $i . 'º </td>';
+                        echo '<td>' . $i . 'ª </td>';
                         foreach ($series as $serie) :
-                            $horarioSegundas = $horarioSegunda->getHorarioDiaSemana($j, $serie['id'], $i);
-            ?>
-
-
-
+                            $horarioSegundas = $horarioSegunda->getHorarioDiaSemana($j, $serie['id'], $i);                           
+                            ?>
                             <td><?php
-                                if ($j == 4) {
-                                    echo 'HIGIENIZAÇÃO DA ESCOLA';
-                                } else if (empty($horarioSegundas['nome'])) {  //echo $serie['id'];
+                                 if (empty($horarioSegundas['id_professor_alocacao'])) {  //echo $serie['id'];
                                     echo anchor('horario/add_profissional_horario/' . $serie['id'] . '/' . $j . '/' . $i, "DISPONÍVEL", array('type' => 'button', 'class' => 'btn btn-success'));
                                 } else {
-                                    echo $nome = '<span style="color:' . $horarioSegundas['cor_destaque'] . ';">' . $horarioSegundas["nome"] . '</span>';
+
+                                    echo anchor('horario/edit_profissional_horario/' . $serie['id'] . '/' . $j . '/' . $i, word_limiter($horarioSegundas["nome"],1,'').' - '.convertDiscipline($horarioSegundas['descricao']) , array('type' => 'button', 'class' => 'btn btn-link btn-sm','style' => 'color:' . $horarioSegundas['cor_destaque']));
+                                    //echo $nome = '<p style="color:' . $horarioSegundas['cor_destaque'] . '; display:flex; justify-content:center; align-items:center; font-size:10px;">' . word_limiter($horarioSegundas["nome"],1,'').' - '.convertDiscipline($horarioSegundas['descricao']) . '</p>';
                                     //echo anchor('add_profissinal_horario/'.$horarioSegundas['id'].'/'.$horarioSegundas[], $nome, array('type'=>'button', 'class'=>'btn btn-outline-dark'));
                                 } ?>
                             </td>
@@ -61,12 +58,7 @@ echo $this->extend('layouts/default'); ?>
                         echo  '</tr>';
                     endfor;
                     echo '<tr><td colspan="13"></td></tr>';
-                } else {
-                    echo '<tr style="color:blue; background: orange; font-size:16px" class="text-center">
-                            <td>' . diaSemanaExtenso($j) . '</td>
-                            <td colspan="12">HIGIENIZAÇÃO DA ESCOLA</td>
-                            </tr>';
-                }
+                
 
 
             endfor;
@@ -75,5 +67,4 @@ echo $this->extend('layouts/default'); ?>
 
     </table>
 </div>
-
 <?= $this->endSection(); ?>
