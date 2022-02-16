@@ -10,12 +10,10 @@
 
   <title>Starter Template for Bootstrap</title>
 
-  <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/starter-template/">
+    <!-- Bootstrap core CSS -->
 
-  <!-- Bootstrap core CSS -->
-
-  <link rel="stylesheet" href="<?php echo base_url("assets/dist/css/bootstrap.min.css"); ?>">
-
+  <link rel="stylesheet" href="<?php echo base_url("assets/dist/css/bootstrap.min.css"); ?>" >
+  
   <!-- Custom styles for this template -->
   <style>
     body {
@@ -26,6 +24,7 @@
       text-align: center;
     }
   </style>
+   
 
 
 </head>
@@ -98,6 +97,7 @@
   </script>
   <script src="<?= base_url("assets/dist/js/popper.min.js") ?>"></script>
   <script src="<?= base_url("assets/dist/js/bootstrap.min.js") ?>"></script>
+  <script src="<?=base_url("assets/dist/js/dashboard.js")?>"></script>
 </body>
 
 </html>

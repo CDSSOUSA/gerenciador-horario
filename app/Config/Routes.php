@@ -53,6 +53,7 @@ $routes->group('/alocacao',['namespace'=>'App\Controllers\Alocacao'],function ($
     //$routes->get('add_profissional_horario/(:any)/(:any)/(:any)','Horario::addProfissionalHorario/$1/$2/$3');   
     $routes->post('add_etp02', 'Alocacao::add_etp02'); 
     $routes->post('add', 'Alocacao::add'); 
+    $routes->post('delete/(:any)', 'Alocacao::delete/$1'); 
 });
 
 

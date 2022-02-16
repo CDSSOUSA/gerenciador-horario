@@ -8,8 +8,11 @@ class Home extends BaseController
 {
     public function index()
     {
+        //return view('main/content');
+
         $n = new HorarioController();
         return $n->index();
+
     }
 
     

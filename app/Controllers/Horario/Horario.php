@@ -93,7 +93,7 @@ class Horario extends BaseController
             ],
             [
                 'nIdAlocacao' => [
-                    'required' => 'O campo PROFESSOR tem preenchimento obrigatório!',
+                    'required' => 'Preenchimento Obrigatório!',
                 ],
             ]
         );     

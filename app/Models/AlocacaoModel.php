@@ -12,14 +12,29 @@ class AlocacaoModel extends Model
     protected $allowedFields = ['id_professor', 'dia_semana', 'posicao_aula', 'status', 'situacao'];
     //protected $returnType           = 'array';
 
-
+    /**
+     * [Description for getAllAlocacaoProfessor]
+     *
+     * @param int $idProfessor
+     * 
+     * @return array
+     * 
+     */
+    public function getAllAlocacaoProfessor(int $idProfessor): array
+    {
+        return $this->select('tb_alocacao_professor.id, pd.id_serie, tb_alocacao_professor.dia_semana, tb_alocacao_professor.posicao_aula, tb_alocacao_professor.situacao')
+            ->join('tb_professor_disciplina pd', 'pd.id = tb_alocacao_professor.id_professor')
+            ->where('pd.id_professor', $idProfessor)
+            ->where('tb_alocacao_professor.status', 'A')
+            ->get()->getResultArray();
+    }
     public function getAlocacaoProfessor(int $id_serie, int $diaSemana, int $posicao)
     {
 
-        return $result = $this->select('tb_alocacao_professor.id, p.nome, d.descricao')                     
-            ->join('tb_professor_disciplina pd', 'pd.id = tb_alocacao_professor.id_professor')      
-            ->join('tb_professor p', 'p.id = pd.id_professor')  
-            ->join('tb_disciplina d', 'pd.id_disciplina = d.id')    
+        return $result = $this->select('tb_alocacao_professor.id, p.nome, d.descricao')
+            ->join('tb_professor_disciplina pd', 'pd.id = tb_alocacao_professor.id_professor')
+            ->join('tb_professor p', 'p.id = pd.id_professor')
+            ->join('tb_disciplina d', 'pd.id_disciplina = d.id')
             ->where('tb_alocacao_professor.dia_semana', $diaSemana)
             ->where('tb_alocacao_professor.status', 'A')
             ->where('tb_alocacao_professor.posicao_aula', $posicao)
@@ -27,7 +42,7 @@ class AlocacaoModel extends Model
             ->where('tb_alocacao_professor.situacao', 'L')
             ->get()->getResultArray();
 
-       
+
 
         /*SELECT tp.nome FROM tb_professor_disciplina tpd 
             join tb_alocacao_professor tap on tpd.id = tap.id_professor
@@ -49,6 +64,26 @@ class AlocacaoModel extends Model
             ->where('id_serie', $id_serie)
             ->set('situacao', 0)
             ->update();
+
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getProfessorIdAlocacao(int $idAlocacao)
+    {
+        return $this->select('pd.id_professor')
+            ->join('tb_professor_disciplina pd', 'pd.id = tb_alocacao_professor.id_professor')
+            ->where('tb_alocacao_professor.id', $idAlocacao)
+            ->get()->getRowArray();
+    }
+
+    public function excluir(int $idAlocacao)
+    {
+        $result = $this->where('id', $idAlocacao)
+            ->delete();
 
         if ($result) {
             return true;
