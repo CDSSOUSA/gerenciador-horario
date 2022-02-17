@@ -45,13 +45,14 @@ endforeach;
           <?php for ($i = 2; $i <= 6; $i++) :
             if (in_array($i, $alocacaoDiaSemana)) : ?>
               <div class="form-check form-switch">
-                <input class="form-check-input flexSwitchCheckCheckedDisabled" name="nDiaSemana<?= $i; ?>" value="<?= set_checkbox('nDia' . $i); ?>" type="checkbox" role="switch" id="flexSwitchCheckDefault<?= $i; ?>" disabled checked>
+                <input class="form-check-input flexSwitchCheckCheckedDisabled" name="_nDiaSemana<?= $i; ?>" value="<?= set_checkbox('nDia' . $i); ?>" type="checkbox" role="switch" id="flexSwitchCheckDefault<?= $i; ?>" disabled checked>
                 <label class="form-check-label" for="flexSwitchCheckDefault<?= $i; ?>"><?= diaSemanaExtenso($i); ?></label>
               </div>
             <?php else : ?>
               <div class="form-check form-switch">
-                <input class="form-check-input" name="nDiaSemana<?= $i; ?>" value="<?= set_checkbox('nDia' . $i); ?>" type="checkbox" role="switch" id="flexSwitchCheckDefault<?= $i; ?>">
+                <input class="form-check-input" name="nDiaSemana[]" value="<?=$i;?>" type="checkbox" role="switch" id="flexSwitchCheckDefault<?= $i; ?>">
                 <label class="form-check-label" for="flexSwitchCheckDefault<?= $i; ?>"><?= diaSemanaExtenso($i); ?></label>
+                <span style="color:red" class="font-italic font-weight-bold"><?php echo $erro !== '' ? $erro->getError('nDiaSemana') : ''; ?></span>
               </div>
           <?php endif;
           endfor; ?>
@@ -162,8 +163,9 @@ endforeach;
                         'role' => 'form',
                         'class' => ''
                       );
+                      echo form_open('alocacao/delete', $atributos_formulario);
 
-                      echo form_open('alocacao/delete/' . $data['id'], $atributos_formulario);
+                      echo form_input('id', $data['id']);
                       ?>
                       <p>Confirmar exclusão?</p>
 

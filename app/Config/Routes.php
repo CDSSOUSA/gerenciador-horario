@@ -51,9 +51,12 @@ $routes->group('/professor',['namespace'=>'App\Controllers\Professor'],function 
 $routes->group('/alocacao',['namespace'=>'App\Controllers\Alocacao'],function ($routes){
     $routes->get('/','Alocacao::index');
     //$routes->get('add_profissional_horario/(:any)/(:any)/(:any)','Horario::addProfissionalHorario/$1/$2/$3');   
+    $routes->get('add_etp02/(:any)/(:any)', 'Alocacao::add_etp02/$1/$2'); 
     $routes->post('add_etp02', 'Alocacao::add_etp02'); 
-    $routes->post('add', 'Alocacao::add'); 
-    $routes->post('delete/(:any)', 'Alocacao::delete/$1'); 
+     
+    //$routes->post('add', 'Alocacao::add'); 
+    $routes->get('add/(:any)', 'Alocacao::add/$1'); 
+    $routes->post('delete', 'Alocacao::delete'); 
 });
 
 

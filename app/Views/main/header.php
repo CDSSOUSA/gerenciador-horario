@@ -35,6 +35,14 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<script>
+  function confirma(){
+    if(!confirm('Confirmar exclusão?')){
+      return false;
+    }
+    return true;
+  }
+  </script>
 </head>
 
 <body>

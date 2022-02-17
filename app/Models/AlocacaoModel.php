@@ -91,4 +91,15 @@ class AlocacaoModel extends Model
             return false;
         }
     }
+
+    public function salvar(array $data)
+    {
+        foreach ($data['diaSemana'] AS $item){
+             $dataEnd['id_professor'] = $data['idProfessor'];
+             $dataEnd['dia_semana'] = $item;
+             $dataEnd['posicao_aula'] = 1;
+        }
+
+        //$this->save($dataEnd);
+    }
 }
