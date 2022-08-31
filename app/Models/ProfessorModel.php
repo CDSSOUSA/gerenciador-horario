@@ -17,5 +17,15 @@ class ProfessorModel extends Model
         return $result = $this->where('id', $id_professor)                               
                               ->get()->getRow();
 }
+public function saveProfessor(array $data)
+{
+    $professor['nome'] = $data['nome'];
+    $professor['qtde_aula'] = $data['qtde_aula'];
+    $professor['cor_destaque'] = $data['cor_destaque'];
+    $professor['status'] = $data['status'];    
+
+    $this->save($professor);
+    
+}
    
 }

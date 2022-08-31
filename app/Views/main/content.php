@@ -1,5 +1,5 @@
 <?php 
-echo $this->extend('layouts/main');
+echo $this->extend('layouts2/default');
 echo $this->section('content');
 ?>
 <main id="main" class="main">

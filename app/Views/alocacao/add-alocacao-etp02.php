@@ -1,5 +1,5 @@
 <?php
-echo $this->extend('layouts/main'); ?>
+echo $this->extend('layouts2/default'); ?>
 <?= $this->section('content');
 
 $alocacaoSerie = [];
@@ -7,14 +7,14 @@ $alocacaoPosicao = [];
 $alocacaoDiaSemana = [];
 
 foreach ($alocacao as $data) :
-  $alocacaoSerie[] = $data['id_serie'];
-  $alocacaoPosicao[] = $data['posicao_aula'];
-  $alocacaoDiaSemana[] = $data['dia_semana'];
+  //$alocacaoSerie[] = $data->id_serie'];
+  $alocacaoPosicao[] = $data->position;
+  $alocacaoDiaSemana[] = $data->dayWeek;
 endforeach;
 
 ?>
 
-<div class="col-lg-6">
+<div class="col-lg-5">
 
   <div class="card">
     <div class="card-body">
@@ -32,9 +32,9 @@ endforeach;
       <div class="row mb-3">
         <label for="inputEmail3" class="col-sm-3 col-form-label">Professor</label>
         <div class="col-sm-9">
-          <input type="text" disabled="true" name="" class="form-control" value="<?= $professor['nome'] . '  -  ' . $professor['qtde_aula'] . ' hora-aula'; ?>">
-          <input type="hidden" name="nNome" alue="<?= $professor['nome']; ?>">
-          <input type="text" name="nIdProfessor" value="<?= $professor['id']; ?>">
+          <input type="text" disabled="true" name="" class="form-control" value="<?= $professor->name . '  -  ' . $professor->amount . ' hora-aula'; ?>">
+          <input type="hidden" name="nNome" alue="<?= $professor->name; ?>">
+          <input type="text" name="nIdProfessor" value="<?= $professor->id; ?>">
           <span style="color:red" class="font-italic font-weight-bold"><?php echo $erro !== '' ? $erro->getError('nIdAlocacao') : ''; ?></span>
 
         </div>
@@ -89,16 +89,16 @@ endforeach;
 
           foreach ($series as $serie) :
 
-            if (in_array($serie['id'], $alocacaoSerie)) :
+            if (in_array($serie->id, $alocacaoSerie)) :
           ?>
               <div class="form-check form-switch">
-                <input class="form-check-input flexSwitchCheckCheckedDisabled" name="nSerie<?= $serie['id']; ?>" value="<?= set_checkbox('nSerie' . $serie['id']); ?>" type="checkbox" role="switch" id="checboxSerie<?= $serie['id']; ?>" disabled checked>
-                <label class="form-check-label" for="checboxSerie<?= $serie['id']; ?>"><?= $serie['descricao'] . ' - ' . $serie['classificacao'] . ' - ' . turno($serie['turno']); ?></label>
+                <input class="form-check-input flexSwitchCheckCheckedDisabled" name="nSerie<?= $serie->id; ?>" value="<?= set_checkbox('nSerie' . $serie->id); ?>" type="checkbox" role="switch" id="checboxSerie<?= $serie->id; ?>" disabled checked>
+                <label class="form-check-label" for="checboxSerie<?= $serie->id; ?>"><?= $serie->description . ' - ' . $serie->classification . ' - ' . turno($serie->shift); ?></label>
               </div>
             <?php else : ?>
               <div class="form-check form-switch">
-                <input class="form-check-input" name="nSerie<?= $serie['id']; ?>" value="<?= set_checkbox('nSerie' . $serie['id']); ?>" type="checkbox" role="switch" id="checboxSerie<?= $serie['id']; ?>">
-                <label class="form-check-label" for="checboxSerie<?= $serie['id']; ?>"><?= $serie['descricao'] . ' - ' . $serie['classificacao'] . ' - ' . turno($serie['turno']); ?></label>
+                <input class="form-check-input" name="nSerie<?= $serie->id; ?>" value="<?= set_checkbox('nSerie' . $serie->id); ?>" type="checkbox" role="switch" id="checboxSerie<?= $serie->id; ?>">
+                <label class="form-check-label" for="checboxSerie<?= $serie->id; ?>"><?= $serie->description . ' - ' . $serie->classification . ' - ' . turno($serie->shift); ?></label>
               </div>
 
           <?php endif;
@@ -117,7 +117,7 @@ endforeach;
     </div>
   </div>
 </div>
-<div class="col-lg-6">
+<div class="col-lg-5">
 
   <div class="card">
     <div class="card-body">
@@ -140,21 +140,21 @@ endforeach;
           foreach ($alocacao as $data) : ?>
             <tr>
               <th scope="row"><?= $contador++; ?></th>
-              <td class="text-center"><?= $data['id_serie'] . 'ª'; ?></td>
-              <td class="text-center"><?= diaSemanaExtenso($data['dia_semana']); ?></td>
-              <td class="text-center"><?= $data['posicao_aula'] . 'ª'; ?></td>
-              <td class="text-center"><?= convertSituation($data['situacao']); ?></td>
+            
+              <td class="text-center"><?= diaSemanaExtenso($data->dayWeek); ?></td>
+              <td class="text-center"><?= $data->position . 'ª'; ?></td>
+              <td class="text-center"><?= convertSituation($data->situation); ?></td>
               <td class="text-center">
-                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#basicModal<?= $data['id']; ?>">
+                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#basicModal<?= $data->id; ?>">
                   <i class="bi bi-trash"></i>
                 </button>
               </td>
 
-              <div class="modal fade" id="basicModal<?= $data['id']; ?>" tabindex="-1" style="display: none;" aria-hidden="true">
+              <div class="modal fade" id="basicModal<?= $data->id; ?>" tabindex="-1" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Excluir Alocação:: <?= $data['id']; ?> </h5>
+                      <h5 class="modal-title">Excluir Alocação:: <?= $data->id; ?> </h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -165,7 +165,7 @@ endforeach;
                       );
                       echo form_open('alocacao/delete', $atributos_formulario);
 
-                      echo form_input('id', $data['id']);
+                      echo form_input('id', $data->id);
                       ?>
                       <p>Confirmar exclusão?</p>
 

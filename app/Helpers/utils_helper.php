@@ -31,15 +31,15 @@ function diaSemanaExtenso(int $diaSemana): string
 
     switch ($diaSemana) {
         case $diaSemana == 2:
-            return 'SEGUNDA';
+            return 'SEG';
         case $diaSemana == 3:
-            return 'TERÇA';
+            return 'TER';
         case $diaSemana == 4:
-            return 'QUARTA';
+            return 'QUA';
         case $diaSemana == 5:
-            return 'QUINTA';
+            return 'QUI';
         case $diaSemana == 6:
-            return 'SEXTA';
+            return 'SEX';
         default:
             return null;
     }
@@ -59,13 +59,31 @@ function convertDiscipline(string $string): string
 
 function describeTeacher(string $nomeCompleto, string $disciplina): string
 {
-    return word_limiter($nomeCompleto, 1, '') . ' - ' . convertDiscipline($disciplina);
+    return word_limiter($nomeCompleto, 1, '') . ' <br> ' . convertDiscipline($disciplina);
+}
+
+function abbreviationTeacher(string $nomeCompleto): string
+{
+    return word_limiter($nomeCompleto, 1, '');
 }
 
 function generateButtonRetro(string $adress): string
 {
-    return anchor($adress, 'Voltar', ['class' => 'btn btn-warning']);
+    return anchor($adress, '<i class="icons fas fa-arrow-circle-left"></i> Voltar', ['class' => 'btn btn-warning']);
 }
+function generationButtonCloseModal(): string
+{
+    return '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i> Fechar</button>';
+}
+function generationButtonSave(string $title = null): string
+{
+    if ($title == null)
+        $title = 'Salvar';
+    return '<button type="submit" class="btn btn-success"> <i class="fa fa-check" aria-hidden="true"></i> ' . $title . '</button>
+    ';
+}
+
+
 
 /**
  * [Description for convertSituation]
@@ -77,5 +95,9 @@ function generateButtonRetro(string $adress): string
  */
 function convertSituation(string $situation): string
 {
-    return $situation == 'L' ? 'LIVRE' : 'OCUPADO';
+    if ($situation === 'L')
+        return 'LIVRE';
+    if ($situation === 'O')
+        return 'OCUPADO';
+    return 'BLOQUEADO';
 }

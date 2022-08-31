@@ -36,7 +36,9 @@ INSERT INTO tb_disciplina (id, descricao) VALUES
 (3, 'PORTUGUÊS'),
 (4, 'HISTÓRIA'),
 (5, 'CIÊNCIAS'),
-(6, 'ED.FÍSICA');
+(6, 'ED.FÍSICA'),
+(7, 'ARTES'),
+(8, 'INGLÊS');
 
 
 CREATE TABLE IF NOT EXISTS tb_professor (
@@ -52,7 +54,8 @@ INSERT INTO tb_professor (id, nome, qtde_aula, cor_destaque, status) VALUES
 (1, 'TIBÉRIO MENDONÇA DE LIMA', 4, '#3C0BF3', 'A'),
 (2, 'PENHA DA SILVA SOUSA', 4, '#A00E2A', 'A'),
 (3, 'JOSILÂNDIA DA SILVA SANTOS', 4, '#0481D7','A'),
-(4, 'MICHELLI CARLA MARIA', '3','#CC4567','A');
+(4, 'MICHELLI CARLA MARIA', '3','#CC4567','A'),
+(5, 'ARMÊNIO JOSE COSTA',4,'#FF1400','A');
 
 
 CREATE TABLE IF NOT EXISTS tb_serie (
@@ -94,7 +97,9 @@ INSERT INTO tb_professor_disciplina (id, id_professor, id_disciplina, id_serie) 
 (2, 1, 2, 2),
 (3, 2, 4, 2),
 (4, 3, 1, 1),
-(5, 4, 5, 1);
+(5, 4, 5, 1),
+(6, 5, 7, 3),
+(7, 1, 6, 1);
 
 
 
@@ -136,8 +141,10 @@ INSERT INTO tb_alocacao_professor (id, id_professor, dia_semana, posicao_aula, s
 (7, 5, '2', 3, 'L', 'A'),
 (8, 4, '2', 3, 'L', 'A');
 
+-- SELECT * FROM tb_alocacao_professor tap;
+
 CREATE TABLE IF NOT EXISTS tb_horario(
-  id int NOT NULL, 
+  id int AUTO_INCREMENT NOT NULL, 
   id_professor_alocacao int,
   dia_semana char(1) DEFAULT NULL COMMENT '2-SEGUNDA, 3-TERÇA, 4-QUARTA, 5-QUINTA, 6-SEXTA',
   posicao_aula smallint DEFAULT NULL,
@@ -156,6 +163,8 @@ INSERT INTO tb_horario (id, id_professor_alocacao,dia_semana, posicao_aula, id_s
 (5, 5, '2', 4, 1, 1, 'A'),
 (6, 6, '2', 6, 1, 1, 'A');
 
+/*SELECT * FROM tb_horario th;
+
  SELECT tp.nome FROM tb_professor_disciplina tpd 
 join tb_alocacao_professor tap on tpd.id = tap.id_professor
 join tb_professor tp on tp.id = tpd.id_professor
@@ -163,6 +172,6 @@ where tap.dia_semana = 2 AND
 tap.posicao_aula = 3 AND 
 tpd.id_serie = 1 AND 
 tap.status = 'A' AND 
-tap.situacao = 'L';
+tap.situacao = 'L';*/
 
 

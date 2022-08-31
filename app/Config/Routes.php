@@ -37,22 +37,44 @@ $routes->setAutoRoute(true);
 $routes->group('/horario',['namespace'=>'App\Controllers\Horario'],function ($routes){
     $routes->get('/','Horario::index');
     $routes->get('add_profissional_horario/(:any)/(:any)/(:any)','Horario::addProfissionalHorario/$1/$2/$3');   
-    $routes->post('add', 'Horario::add'); 
+    $routes->post('add', 'Horario::add');     
+});
+$routes->group('/horario/api',['namespace'=>'App\Controllers\Horario'],function ($routes){
+    // $routes->get('/','Horario::index');
+    // $routes->get('add_profissional_horario/(:any)/(:any)/(:any)','Horario::addProfissionalHorario/$1/$2/$3');   
+    // $routes->post('add', 'Horario::add'); 
+    $routes->get('getAllocation/(:any)','ApiHorario::getAllocation/$1');    
+    $routes->post('create','ApiHorario::create');    
+    $routes->get('delete/(:any)','ApiHorario::deleteSchedule/$1');    
+    $routes->post('del','ApiHorario::del');    
 });
 
 /* ROUTES PROFESSOR */
 $routes->group('/professor',['namespace'=>'App\Controllers\Professor'],function ($routes){
-    $routes->get('/','Professor::index');
+    $routes->get('/','Professor::add');
+    $routes->get('list','Professor::list');
     //$routes->get('add_profissional_horario/(:any)/(:any)/(:any)','Horario::addProfissionalHorario/$1/$2/$3');   
-    $routes->post('add', 'Professor::add'); 
+    $routes->post('create', 'Professor::create'); 
+});
+/* ROUTES PROFESSOR DISCIPLINA */
+$routes->group('/teacDisc',['namespace'=>'App\Controllers\TeacDisc'],function ($routes){
+    $routes->get('list/(:any)','TeacDisc::list/$1');
+    $routes->get('edit/(:any)','TeacDisc::edit/$1');
+    $routes->get('delete/(:any)','TeacDisc::delete/$1');
+    $routes->post('create','TeacDisc::create');
+    //$routes->get('add_profissional_horario/(:any)/(:any)/(:any)','Horario::addProfissionalHorario/$1/$2/$3');   
+    //$routes->post('create', 'Professor::create'); 
+    $routes->post('update', 'TeacDisc::update'); 
+    $routes->post('del', 'TeacDisc::del'); 
 });
 
 /* ROUTES ALOCAÇÃO */
-$routes->group('/alocacao',['namespace'=>'App\Controllers\Alocacao'],function ($routes){
+$routes->group('/alocacao',['namespace'=>'App\Controllers\Alocacao','filter'=>'accessFilter'],function ($routes){
     $routes->get('/','Alocacao::index');
+    
     //$routes->get('add_profissional_horario/(:any)/(:any)/(:any)','Horario::addProfissionalHorario/$1/$2/$3');   
     $routes->get('add_etp02/(:any)/(:any)', 'Alocacao::add_etp02/$1/$2'); 
-    $routes->post('add_etp02', 'Alocacao::add_etp02'); 
+    $routes->post('create', 'Alocacao::create'); 
      
     //$routes->post('add', 'Alocacao::add'); 
     $routes->get('add/(:any)', 'Alocacao::add/$1'); 
@@ -60,6 +82,9 @@ $routes->group('/alocacao',['namespace'=>'App\Controllers\Alocacao'],function ($
 });
 
 
+/*ROUTES LOGOUT
+*/
+$routes->get('/logout','Home::logout');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -22,25 +22,19 @@ class HorarioModel extends Model
      */
 
 
-    public function getHorarioDiaSemana(int $diaSemana, int $idSerie, int $posicao): array
+    public function getTimeDayWeek(int $diaSemana, int $idSerie, int $posicao): array
     {
 
-        /*$result = $this->select('h.id, h.id_professor, p.cor_destaque')
-                        ->from('tb_professor p')
-                        ->join('tb_horario h', 'p.id = h.id_professor')                        
-                        ->where('h.dia_semana', $diaSemana)
-                        ->where('h.id_serie', $idSerie)
-                        ->where('h.posicao_aula', $posicao)
-                        ->get()->getRowArray();
-        
-        return !is_null($result) ? $result : [];*/
-
-        $result = $this->select('p.nome, h.id_professor_alocacao, p.cor_destaque, d.descricao')
+        $result = $this->select(
+            'p.name, 
+            h.id_professor_alocacao, 
+            p.color, 
+            d.abbreviation')
             ->from('tb_horario h')
-            ->join('tb_alocacao_professor ap', 'h.id_professor_alocacao = ap.id')
-            ->join('tb_professor_disciplina pd', 'ap.id_professor = pd.id')
-            ->join('tb_disciplina d', 'pd.id_disciplina = d.id')
-            ->join('tb_professor p', 'pd.id_professor = p.id')
+            ->join('tb_allocation ap', 'h.id_professor_alocacao = ap.id')
+            ->join('tb_teacher_discipline pd', 'ap.id_teacher_discipline = pd.id')
+            ->join('tb_discipline d', 'pd.id_discipline = d.id')
+            ->join('tb_teacher p', 'pd.id_teacher = p.id')
             ->where('h.dia_semana', $diaSemana)
             ->where('h.id_serie', $idSerie)
             ->where('h.posicao_aula', $posicao)

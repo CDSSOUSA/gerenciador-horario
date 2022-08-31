@@ -1,69 +1,56 @@
 <?php
-echo $this->extend('layouts/main');
+echo $this->extend('layouts2/default');
 echo $this->section('content'); ?>
-<div class="col-lg-6">
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-secondary">
 
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Horizontal Form</h5>
-            <?php if ($msgs['alert']) : ?>
-                <div class="alert alert-<?= $msgs['alert'] ?> bg-<?= $msgs['alert'] ?> text-light border-0 alert-dismissible fade show" role="alert">
-                    <?= $msgs['message']; ?>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php endif; ?>
+                    <div class="card-header">
+                        <h3 class="card-title"><?=$title?></h3>
+                    </div>
 
-            <!-- Horizontal Form -->
-            <?php echo form_open('horario/add', ['class' => '']) ?>
+                    <?php echo form_open('horario/add') ?>
 
-            <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-3 col-form-label">Professor</label>
-                <div class="col-sm-9">
-                    <select id="inputState" class="form-select" name="nIdAlocacao">
-                        <option value="">Selecione ...</option>
-                        <?php
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Professor :: (Clique para selecioná-lo)</label>
+                            <br>
+                            <?php foreach ($professores as $professor) : ?>
+                                <div class="form-check form-check-inline radio-toolbar text-white" style="background-color:<?= $professor['color'] ?> ;">
+                                    <input class="form-check-input" type="radio" id="gridCheck1<?= $professor['id'] ?>" name="nIdAlocacao" value="<?= $professor['id'] ?>">
+                                    <label class="" for="gridCheck1<?= $professor['id'] ?>">
+                                        <span class="font-size-12"><?= $professor['abbreviation']; ?></span><br><span class="font-size-10"><?= abbreviationTeacher($professor['name']); ?></span>
+                                    </label>
+                                </div>
+                            <?php endforeach ?>
+                            <div class="form-group col-4">
+                                <label for="exampleInputPassword1">Dia Semana</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="" value="<?= diaSemanaExtenso($diaSemana); ?>" disabled="true">
+                                <input type="hidden" name="ndiaSemana" class="form-control" id="firstName" placeholder="" value="<?= $diaSemana; ?>">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="exampleInputFile">Posição</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="" value="<?= $posicao . 'º' ?>" disabled="true">
+                                <input type="hidden" class="form-control" name="nPosicao" placeholder="" value="<?= $posicao ?>">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="exampleInputFile">Série</label>
+                                <input type="text" class="form-control" value="<?= $idSerie->description . ' ' . $idSerie->classification . ' - ' . turno($idSerie->shift) ?>" id="zip" placeholder="" disabled="true">
+                                <input type="hidden" name="nSerie" class="form-control" value="<?= $idSerie->id ?>">
+                            </div>
+                        </div>
 
-                        foreach ($professores as $professor) : ?>
-                            <option value="<?= $professor['id'] ?>"><?= describeTeacher($professor['nome'], $professor['descricao']) ?></option>
-                        <?php endforeach ?>
-                    </select>
-                    <span style="color:red" class="font-italic font-weight-bold"><?php echo $erro !== '' ? $erro->getError('nIdAlocacao') : ''; ?></span>
-
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-3 col-form-label">Dia Semana</label>
-                <div class="col-sm-9">
-
-                    <input type="text" class="form-control" id="firstName" placeholder="" value="<?= diaSemanaExtenso($diaSemana); ?>" disabled="true">
-                    <input type="hidden" name="ndiaSemana" class="form-control" id="firstName" placeholder="" value="<?= $diaSemana; ?>">
-
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="inputPassword3" class="col-sm-3 col-form-label">Posição Aula</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="lastName" placeholder="" value="<?= $posicao . 'º' ?>" disabled="true">
-                    <input type="hidden" class="form-control" name="nPosicao" placeholder="" value="<?= $posicao ?>">
-
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="inputPassword3" class="col-sm-3 col-form-label">Série</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" value="<?= $idSerie['descricao'] . ' ' . $idSerie['classificacao'] . ' - ' . turno($idSerie['turno']) ?>" id="zip" placeholder="" disabled="true">
-                    <input type="hidden" name="nSerie" class="form-control" value="<?= $idSerie['id'] ?>">
-                </div>
-            </div>
-
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary">Salvar</button>
+                        <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
                 <button type="reset" class="btn btn-secondary">Limpar</button>
                 <?= generateButtonRetro('/horario'); ?>
+                        </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            </form><!-- End Horizontal Form -->
-
         </div>
-    </div>
-</div>
+</section>
 <?= $this->endSection(); ?>

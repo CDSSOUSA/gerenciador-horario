@@ -37,7 +37,7 @@
             </div>
             
 
-            <?php echo form_open('professor/add',['class'=>'needs-validation'])?>
+            <?php echo form_open('professor/create',['class'=>'needs-validation'])?>
             <div class="row g-3">
 
                 <div class="col-sm-12">
